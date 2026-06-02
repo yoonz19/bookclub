@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>각양각책 - 독서토론 아카이브</title>
+<meta name="description" content="각양각책 독서토론 모임 아카이브">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/niceplugin/paperlogy-font@1.0.0/css/paperlogy.min.css">
+<style>
+  :root {
+    --dark: #111115;
+    --accent: #6366F1;
+    --accent2: #A78BFA;
+    --warm-bg: #F8F8FC;
+    --text: #1a1a2e;
+    --text2: #888;
+    --card: #FFFFFF;
+    --radius: 14px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Pretendard',sans-serif; background:var(--warm-bg); color:var(--text); line-height:1.7; -webkit-font-smoothing:antialiased; }
+
+  /* HERO */
+  .hero { background:var(--dark); min-height:440px; display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:conic-gradient(from 120deg at 25% 75%,rgba(99,102,241,0.2) 0deg,transparent 120deg),conic-gradient(from 300deg at 75% 25%,rgba(167,139,250,0.15) 0deg,transparent 120deg); }
+  .hero-covers { position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; overflow:hidden; filter:blur(4px); opacity:0.1; }
+  .hero-covers-row { display:flex; position:absolute; left:0; gap:14px; animation:covers-scroll 45s linear infinite; }
+  .hero-covers-row:nth-child(1) { top:-5px; }
+  .hero-covers-row:nth-child(2) { bottom:-5px; animation:covers-scroll-reverse 40s linear infinite; }
+  .hero-covers-row img { width:100px; height:142px; object-fit:cover; border-radius:8px; flex-shrink:0; }
+  @keyframes covers-scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+  @keyframes covers-scroll-reverse { 0%{transform:translateX(-50%)} 100%{transform:translateX(0)} }
+
+  .hero-content { position:relative; z-index:1; text-align:center; padding:60px 32px; }
+  .hero-eyebrow { display:inline-flex; align-items:center; gap:12px; margin-bottom:28px; }
+  .hero-eyebrow-line { width:36px; height:1px; background:var(--accent); opacity:0.5; }
+  .hero-eyebrow-text { font-size:12px; font-weight:600; letter-spacing:5px; text-transform:uppercase; color:var(--accent2); opacity:0.8; }
+  .hero-title { font-family:'Paperlogy',sans-serif; font-weight:900; font-size:60px; color:#fff; line-height:1.05; margin-bottom:16px; letter-spacing:-2px; }
+  .hero-sub { font-size:16px; color:rgba(255,255,255,0.4); max-width:400px; margin:0 auto 36px; }
+  .hero-pills { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+  .hero-pill { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:100px; padding:10px 22px; backdrop-filter:blur(8px); }
+  .hero-pill-num { font-family:'Paperlogy',sans-serif; font-weight:800; font-size:20px; color:var(--accent2); }
+  .hero-pill-label { font-size:12px; color:rgba(255,255,255,0.4); font-weight:500; }
+
+  /* MAIN */
+  .main { max-width:1200px; margin:0 auto; padding:56px 24px 80px; }
+  .section-header { display:flex; align-items:baseline; gap:16px; margin-bottom:36px; }
+  .section-title { font-family:'Paperlogy',sans-serif; font-weight:800; font-size:26px; }
+  .section-sub { font-size:14px; color:var(--text2); }
+
+  /* PERIOD ACCORDION */
+  .period-section { margin-bottom:12px; }
+  .period-section summary { cursor:pointer; list-style:none; display:flex; align-items:center; gap:14px; margin:36px 0 24px; user-select:none; }
+  .period-section summary::-webkit-details-marker { display:none; }
+  .period-section:first-of-type summary { margin-top:0; }
+  .period-label { font-family:'Paperlogy',sans-serif; font-weight:800; font-size:20px; color:var(--accent); white-space:nowrap; }
+  .period-line { flex:1; height:1px; background:linear-gradient(to right,rgba(99,102,241,0.3),transparent); }
+  .period-toggle { flex-shrink:0; width:30px; height:30px; border-radius:50%; background:rgba(99,102,241,0.08); display:flex; align-items:center; justify-content:center; transition:transform 0.3s; font-size:13px; color:var(--accent); }
+  .period-toggle::after { content:'\25BC'; }
+  .period-section[open] .period-toggle { transform:rotate(180deg); }
+
+  /* BOOK GRID */
+  .book-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:18px; }
+  .book-card { background:var(--card); border-radius:var(--radius); overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,0.05); transition:transform 0.25s,box-shadow 0.25s; position:relative; }
+  .book-card:hover { transform:translateY(-4px); box-shadow:0 10px 32px rgba(0,0,0,0.1); }
+  .book-card.has-journal { cursor:pointer; }
+  .book-card.has-journal::after { content:'READ'; position:absolute; top:12px; right:12px; background:var(--accent); color:#fff; font-size:10px; font-weight:700; padding:3px 10px; border-radius:20px; letter-spacing:1px; z-index:2; }
+  a.book-card { text-decoration:none; color:inherit; display:block; }
+  .book-cover { width:100%; aspect-ratio:3/4; overflow:hidden; }
+  .book-cover img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s; }
+  .book-card:hover .book-cover img { transform:scale(1.05); }
+  .book-info { padding:14px; }
+  .book-session { font-size:11px; font-weight:600; color:var(--accent); letter-spacing:1px; margin-bottom:4px; }
+  .book-title { font-family:'Paperlogy',sans-serif; font-weight:700; font-size:15px; line-height:1.3; margin-bottom:3px; }
+  .book-author { font-size:13px; color:var(--text2); }
+
+  /* FOOTER */
+  .footer { background:var(--dark); padding:40px 24px; text-align:center; }
+  .footer-logo { font-family:'Paperlogy',sans-serif; font-weight:800; font-size:18px; color:rgba(255,255,255,0.25); margin-bottom:6px; }
+  .footer-sub { font-size:13px; color:rgba(255,255,255,0.12); }
+
+  @media (max-width:768px) {
+    .hero-title { font-size:40px; }
+    .book-grid { grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:12px; }
+    .book-info { padding:10px; }
+    .book-title { font-size:13px; }
+  }
+  @media (max-width:480px) {
+    .hero-title { font-size:32px; }
+    .book-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-covers">
+    <div class="hero-covers-row" id="coverRow1"></div>
+    <div class="hero-covers-row" id="coverRow2"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      <span class="hero-eyebrow-text">Book Club Archive</span>
+      <span class="hero-eyebrow-line"></span>
+    </div>
+    <h1 class="hero-title">각양각책</h1>
+    <p class="hero-sub">각자의 시선으로 읽고, 각자의 언어로 나누는 독서토론</p>
+    <div class="hero-pills">
+      <div class="hero-pill">
+        <span class="hero-pill-num">16</span>
+        <span class="hero-pill-label">Books</span>
+      </div>
+      <div class="hero-pill">
+        <span class="hero-pill-num">4</span>
+        <span class="hero-pill-label">Seasons</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="main">
+
+  <div class="section-header">
+    <h2 class="section-title">모임일지 아카이브</h2>
+    <span class="section-sub">클릭하면 상세 일지를 볼 수 있어요</span>
+  </div>
+
+  <!-- 1기 -->
+  <details class="period-section" open>
+  <summary>
+    <span class="period-label">1기</span>
+    <div class="period-line"></div>
+    <span class="period-toggle"></span>
+  </summary>
+  <div class="book-grid">
+    <a href="sessions/1-1.pdf" target="_blank" class="book-card has-journal">
+      <div class="book-cover"><img src="images/1-1.jpg" alt=""></div>
+      <div class="book-info">
+        <div class="book-session">1-1</div>
+        <div class="book-title">카타리나 블룸의 잃어버린 명예</div>
+        <div class="book-author">하인리히 뵐</div>
+      </div>
+    </a>
+    <a href="sessions/1-2.pdf" target="_blank" class="book-card has-journal">
+      <div class="book-cover"><img src="images/1-2.jpg" alt=""></div>
+      <div class="book-info">
+        <div class="book-session">1-2</div>
+        <div class="book-title">두 사람의 인터내셔널</div>
+        <div class="book-author">김기태</div>
+      </div>
+    </a>
+    <a href="sessions/1-3.pdf" target="_blank" class="book-card has-journal">
+      <div class="book-cover"><img src="images/1-3.jpg" alt=""></div>
+      <div class="book-info">
+        <div class="book-session">1-3</div>
+        <div class="book-title">천 개의 파랑</div>
+        <div class="book-author">천선란</div>
+      </div>
+    </a>
+    <a href="sessions/1-4.pdf" target="_blank" class="book-card has-journal">
+      <div class="book-cover"><img src="images/1-4.jpg" alt=""></div>
+      <div class="book-info">
+        <div class="book-session">1-4</div>
+        <div class="book-title">패싱</div>
+        <div class="book-author">넬라 라슨</div>
+      </div>
+    </a>
+  </div>
+  </details>
+
+  <!-- 2기 -->
+  <details class="period-section" open>
+  <summary>
+    <span class="period-label">2기</span>
+    <div class="period-line"></div>
+    <span class="period-toggle"></span>
+  </summary>
+  <div class="book-grid">
+    <a href="sessions/2-1.pdf" target="_blank" class="book-card has-journal">
+      <div class="book-cover"><img src="images/2-1.jpg" alt=""></div>
+      <div class="book-info">
+        <div class="book-session">2-1</div>
+        <div class="book-title">모성</div>
+        <div class="book-author">미나토 가나에</div>
+      </div>
+    </a>
+    <a href="sessions/2-2.pdf" target="_blank" class="book-card has-journal">
+      <div class="book-cover"><img src="images/2-2.jpg" alt=""></div>
+      <div class="book-info">
+        <div class="book-session">2-2</div>
+        <div class="book-title">구르브 연락 없다</div>
+        <div class="book-author">에두아르도 멘도사</div>
+      </div>
+    </a>
+    <a href="sessions/2-3.pdf" target="_blank" class="book-card has-journal">
+      <div class="book-cover"><img src="images/2-3.jpg" alt=""></div>
+      <div class="book-info">
+        <div class="book-session">2-3</div>
+        <div class="book-title">멋진 신세계</div>
+        <div class="book-author">올더스 헉슬리</div>
+      </div>
+    </a>
+    <div class="book-card">
+      <div class="book-cover"><img src="images/2-4.jpg" alt=""></div>
+      <div class="book-info">
+        <div class="book-session">2-4</div>
+        <div class="book-title">명랑한 은둔자</div>
+        <div class="book-author">캐럴라인 냅</div>
+      </div>
+    </div>
+  </div>
+  </details>
+
+  <!-- 3기 (한강 특집) -->
+  <details class="period-section" open>
+  <summary>
+    <span class="period-label">3기 — 한강 특집</span>
+    <div class="period-line"></div>
+    <span class="period-toggle"></span>
+  </summary>
+  <div class="book-grid">
+    <a href="sessions/3-1.pdf" target="_blank" class="book-card has-journal">
+      <div class="book-cover"><img src="images/3-1.jpg" alt=""></div>
+      <div class="book-info">
+        <div class="book-session">3-1</div>
+        <div class="book-title">희랍어 시간</div>
+        <div class="book-author">한강</div>
+      </div>
+    </a>
+    <div class="book-card">
+      <div class="book-cover"><img src="images/3-2.jpg" alt=""></div>
+      <div class="book-info">
+        <div class="book-session">3-2</div>
+        <div class="book-title">작별하지 않는다</div>
+        <div class="book-author">한강</div>
+      </div>
+    </div>
+    <div class="book-card">
+      <div class="book-cover"><img src="images/3-3.jpg" alt=""></div>
+      <div class="book-info">
+        <div class="book-session">3-3</div>
+        <div class="book-title">흰</div>
+        <div class="book-author">한강</div>
+      </div>
+    </div>
+    <div class="book-card">
+      <div class="book-cover"><img src="images/3-4.jpg" alt=""></div>
+      <div class="book-info">
+        <div class="book-session">3-4</div>
+        <div class="book-title">채식주의자</div>
+        <div class="book-author">한강</div>
+      </div>
+    </div>
+  </div>
+  </details>
+
+  <!-- 4기 -->
+  <details class="period-section" open>
+  <summary>
+    <span class="period-label">4기</span>
+    <div class="period-line"></div>
+    <span class="period-toggle"></span>
+  </summary>
+  <div class="book-grid">
+    <div class="book-card">
+      <div class="book-cover"><img src="images/4-1.jpg" alt=""></div>
+      <div class="book-info">
+        <div class="book-session">4-1</div>
+        <div class="book-title">속죄</div>
+        <div class="book-author">이언 매큐언</div>
+      </div>
+    </div>
+    <div class="book-card">
+      <div class="book-cover"><img src="images/4-2.jpg" alt=""></div>
+      <div class="book-info">
+        <div class="book-session">4-2</div>
+        <div class="book-title">이처럼 사소한 것들</div>
+        <div class="book-author">클레어 키건</div>
+      </div>
+    </div>
+    <div class="book-card">
+      <div class="book-cover"><img src="images/4-3.jpg" alt=""></div>
+      <div class="book-info">
+        <div class="book-session">4-3</div>
+        <div class="book-title">테레즈 라캥</div>
+        <div class="book-author">에밀 졸라</div>
+      </div>
+    </div>
+    <div class="book-card">
+      <div class="book-cover"><img src="images/4-4.jpg" alt=""></div>
+      <div class="book-info">
+        <div class="book-session">4-4</div>
+        <div class="book-title">파워 오브 도그</div>
+        <div class="book-author">돈 윈슬로</div>
+      </div>
+    </div>
+  </div>
+  </details>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-logo">각양각책</div>
+  <div class="footer-sub">각자의 시선으로 읽고, 각자의 언어로 나누는 독서토론</div>
+</footer>
+
+<script>
+// 히어로 배경 표지 자동 생성
+const imgs = [];
+for(let s=1;s<=4;s++) for(let b=1;b<=4;b++) imgs.push('images/'+s+'-'+b+'.jpg');
+const r1=document.getElementById('coverRow1'), r2=document.getElementById('coverRow2');
+const h1=imgs.slice(0,8), h2=imgs.slice(8);
+[...h1,...h1].forEach(s=>{const i=document.createElement('img');i.src=s;i.alt='';r1.appendChild(i);});
+[...h2,...h2].forEach(s=>{const i=document.createElement('img');i.src=s;i.alt='';r2.appendChild(i);});
+</script>
+</body>
+</html>
