@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>각양각책 3-3 - 흰</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/niceplugin/paperlogy-font@1.0.0/css/paperlogy.min.css">
+<style>
+  :root { --primary:#9CA3AF; --dark:#0B0B0F; --gold:#F3F4F6; --accent:#D1D5DB; --warm-bg:#FAFAFA; --slate:#111827; --text:#1F2937; --text2:#6B7280; --card:#fff; --radius:20px; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Pretendard',sans-serif; background:var(--warm-bg); color:var(--text); line-height:1.85; -webkit-font-smoothing:antialiased; }
+  .hero { background:var(--dark); min-height:480px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 50%,rgba(255,255,255,0.06) 0%,transparent 60%); }
+  .hero-inner { position:relative; z-index:1; display:flex; align-items:center; gap:48px; max-width:960px; padding:60px 32px; width:100%; }
+  .hero-cover { flex-shrink:0; width:200px; height:290px; border-radius:14px; overflow:hidden; box-shadow:0 16px 48px rgba(0,0,0,0.4),0 0 60px rgba(255,255,255,0.05); background:#000; }
+  .hero-cover img { width:100%; height:100%; object-fit:cover; display:block; }
+  .hero-text { flex:1; }
+  .hero-badge { display:inline-block; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:50px; padding:6px 20px; color:rgba(255,255,255,0.5); font-size:13px; font-weight:600; letter-spacing:3px; text-transform:uppercase; margin-bottom:20px; }
+  .hero-title { font-family:'Paperlogy',sans-serif; font-weight:900; font-size:72px; color:#fff; line-height:1; margin-bottom:10px; letter-spacing:8px; }
+  .hero-sub { font-family:'Paperlogy',sans-serif; font-weight:500; font-size:20px; color:rgba(255,255,255,0.3); margin-bottom:24px; }
+  .hero-meta { display:flex; gap:24px; }
+  .hero-meta-item { font-size:14px; color:rgba(255,255,255,0.25); }
+  .hero-meta-item strong { color:rgba(255,255,255,0.5); }
+  .content { max-width:800px; margin:0 auto; padding:48px 24px 80px; }
+  .book-intro { background:var(--card); border-radius:var(--radius); padding:36px; margin-bottom:40px; box-shadow:0 2px 20px rgba(0,0,0,0.04); }
+  .book-intro h2 { font-family:'Paperlogy',sans-serif; font-weight:700; font-size:20px; margin-bottom:12px; color:var(--slate); }
+  .book-intro p { font-size:15px; color:var(--text2); line-height:1.9; }
+  .tags { display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
+  .tag { background:rgba(0,0,0,0.04); color:var(--text2); padding:4px 14px; border-radius:50px; font-size:13px; font-weight:500; }
+  .discussion-card { background:var(--card); border-radius:var(--radius); padding:36px; margin-bottom:28px; box-shadow:0 2px 20px rgba(0,0,0,0.04); border-left:4px solid var(--accent); }
+  .discussion-card:nth-child(even) { border-left-color:#E5E7EB; }
+  .discussion-card:nth-child(3n) { border-left-color:#9CA3AF; }
+  .q-num { display:inline-block; background:var(--dark); color:var(--gold); width:32px; height:32px; border-radius:50%; text-align:center; line-height:32px; font-size:14px; font-weight:700; margin-bottom:12px; }
+  .q-title { font-family:'Paperlogy',sans-serif; font-weight:700; font-size:18px; line-height:1.5; margin-bottom:20px; color:var(--slate); }
+  .discussion-card ul { list-style:none; padding:0; }
+  .discussion-card li { position:relative; padding-left:20px; margin-bottom:14px; font-size:15px; line-height:1.8; }
+  .discussion-card li::before { content:''; position:absolute; left:0; top:10px; width:6px; height:6px; border-radius:50%; background:var(--accent); }
+  .insight { background:rgba(0,0,0,0.02); border-radius:12px; padding:20px 24px; margin-top:20px; border:1px solid rgba(0,0,0,0.04); }
+  .insight-label { font-size:12px; font-weight:700; color:var(--text2); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+  .insight p { font-size:14px; color:var(--text2); line-height:1.8; }
+  .quote-block { background:var(--card); border-radius:var(--radius); padding:32px 36px; margin-bottom:28px; box-shadow:0 2px 20px rgba(0,0,0,0.04); border-left:4px solid var(--dark); font-style:italic; color:var(--text2); font-size:15px; line-height:1.9; }
+  .quote-block .quote-source { font-style:normal; font-size:13px; color:#bbb; margin-top:12px; }
+  .footer { background:var(--dark); padding:48px 24px; text-align:center; }
+  .footer-logo { font-family:'Paperlogy',sans-serif; font-weight:800; font-size:18px; color:rgba(255,255,255,0.15); margin-bottom:6px; letter-spacing:4px; }
+  .footer-sub { font-size:13px; color:rgba(255,255,255,0.08); }
+  .back-link { display:inline-block; margin-bottom:20px; color:var(--text2); text-decoration:none; font-size:14px; font-weight:600; }
+  .back-link:hover { text-decoration:underline; }
+  @media (max-width:768px) { .hero-inner { flex-direction:column; text-align:center; padding:40px 20px; } .hero-cover { width:150px; height:218px; } .hero-title { font-size:48px; } .content { padding:32px 16px 60px; } .discussion-card,.book-intro { padding:24px; } }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-cover">
+      <img src="../images/3-3.jpg" alt="흰 표지">
+    </div>
+    <div class="hero-text">
+      <div class="hero-badge">각양각책 3기 - 한강 특집</div>
+      <h1 class="hero-title">흰</h1>
+      <div class="hero-sub">한강</div>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><strong>3-3</strong> 회차</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="content">
+
+  <a href="../index.html" class="back-link">&larr; 아카이브로 돌아가기</a>
+
+  <div class="book-intro">
+    <h2>책 소개</h2>
+    <p>
+      "흰 것에 대해 쓰겠다고 결심한 봄에 내가 처음 한 일은 목록을 만든 것이었다."
+      강보, 배내옷, 소금, 눈, 얼음, 달, 쌀, 파도, 백목련 - 태어나자마자 두 시간 만에 죽은 언니의 자리에서
+      자라난 화자가 삶과 죽음의 경계에서 흰 것들을 응시하는 한강의 산문집.
+      모국어에서 '하얀'이 아닌 '흰'을 선택한 이유: "하얀과 달리 흰에는 삶과 죽음이 쓸쓸하게 함께 되어 있다."
+    </p>
+    <div class="tags">
+      <span class="tag">산문</span>
+      <span class="tag">흰</span>
+      <span class="tag">삶과 죽음</span>
+      <span class="tag">부채감</span>
+      <span class="tag">언니</span>
+      <span class="tag">노벨문학상</span>
+    </div>
+  </div>
+
+  <div class="discussion-card">
+    <span class="q-num">1</span>
+    <div class="q-title">감상평 - 한강이 선물하는 시간</div>
+    <ul>
+      <li>"이 사람이 시간을 선물해주는 느낌을 받았다" - 과거로 데려가서 잊고 살았던 감각을 되살려주는 경험. 멈춤을 모르는 우리에게 멈출 수 있게 해주는 책</li>
+      <li>"내가 무디고 거칠고 단순하게 사는데, 이 여자의 글 덕분에 내가 섬세해지는 거야" - 탁월한 재주로 무딘 감각까지 다 깨우는 작가</li>
+      <li>반대 의견: "의식 없이 그냥 지나가는 나를 딱 붙들어서 깊은 걸 보여주는데, 너 왜 그렇게 살아? 하는 느낌이라 죄책감이 들었다"</li>
+      <li>"산 것도 산 채로 두질 않고, 죽은 것도 죽은 채로 두질 않는다" - 산 사람은 제대로 된 생명력을 갖지 못하고, 죽은 것도 완전히 죽지 못하고 그 중간 어디를 함께 떠도는 느낌</li>
+      <li>"보통 사람들보다 무겁고 심각하고 심오한데, 종교까지 가지 않아서 대중적으로 먹히는 것 같다. 자기에게 진지하게 말하면서 너무 솔직하게 풀어놓는 묘한 매력"</li>
+      <li>한강의 모든 책에 깔린 기조: 살아간다는 것 자체가 죽은 것들에 대한 부채감을 가지고 있어야 한다</li>
+    </ul>
+    <div class="insight">
+      <div class="insight-label">INSIGHT</div>
+      <p>"한강의 언어는 그물에 빠져나가서 잡히지 않는다. 몇 개 큰 단어들만 잡힌다. 이 소설을 제대로 토론하려면 세 번 이상은 읽어야 한다" vs "반대로 얘가 이렇게 무딘 내 감각까지 다 깨우고 있는 거야. 난 이 탁월한 재주에 놀랐는데" - 같은 책인데 한 사람은 놓치고 한 사람은 잡힌다.</p>
+    </div>
+  </div>
+
+  <div class="discussion-card">
+    <span class="q-num">2</span>
+    <div class="q-title">'하얀'과 '흰'의 차이 - 벚꽃은 하얀, 목련은 흰</div>
+    <ul>
+      <li>작가가 182페이지에서 직접 설명: "하얀과 달리 흰에는 삶과 죽음이 쓸쓸하게 함께 되어 있다" - 그래서 '하얀'이 아닌 '흰'을 선택</li>
+      <li>"벚꽃은 하얀이고 목련은 흰이에요" - 이 한마디에 모두가 탄성. 벚꽃은 화려하고 축제적이지만, 목련은 가슴이 아프다</li>
+      <li>김훈이 벚꽃을 묘사한 것: "말기 암환자처럼 처참하게 죽어간다" - 하얀 벚꽃도 떨어지는 순간은 '흰'이 된다</li>
+      <li>흰색의 힘 - 지저분한 집을 흰 페인트로 칠하면 모든 시간을 지워버린다. 흰눈이 내리면 세상의 진상을 덮어버린다. "짧은 찰나의 순간에 엄청난 힐링을 할 수 있다"</li>
+      <li>딸이 미친 듯이 흰색만 좋아하는 에피소드 - 흰 티, 흰 잠바, 흰 양말, 벽지도 바닥도 가구도 전부 흰색. "하나도 안 치우는 애가 무조건 흰색이야"</li>
+    </ul>
+  </div>
+
+  <div class="discussion-card">
+    <span class="q-num">3</span>
+    <div class="q-title">강렬했던 흰 - 벚꽃, 목련, 그리고 늙어감</div>
+    <ul>
+      <li>벚꽃 앓이 - "너무 덧없고 아름다워서 너무 슬프다. 봄만 되면 벚꽃 앓이를 한다. 밤이면 시청 쪽으로 벚꽃을 보러 혼자 돌아다닌다"</li>
+      <li>목련의 슬픔 - "목련만 보면 너무 슬퍼서 진짜 죽을 것 같아. 순식간에 함박꽃처럼 벌어졌다가 너무 순식간에 준비 없이 턱턱 떨어져서 썩어가는데 그 짧은 찰나가 너무 슬프다"</li>
+      <li>4월 16일 세월호와의 연결 - "왜 이렇게 슬프지? 맨날 그랬는데 세월호가 터졌어. 이렇게 슬픈 일이 있으려고 슬펐나 싶을 정도로 절묘하게 아팠다"</li>
+      <li><strong>벚꽃과 늙어감의 단계:</strong> 스무 살에는 벚꽃이 안 보인다(사랑하는 사람만 본다) → 꽃의 화려함만 보인다 → 풀을 보고도 세상 예쁘다고 난리가 난다(엄마들 프사가 다 그렇다) → 마지막 단계: "벚꽃이 빛나는 이유는 줄기가 그렇게 새까맣기 때문이라는 걸 알게 된다. 배경이 죽어줘서 빛나는 거다"</li>
+      <li>흰 빨래의 감각 - 냇가에서 방망이로 두드려 하얗게 빤 빨래를 바람에 흩날리게 너는 꿈. 표백제와 삶는 냄새가 다르다</li>
+    </ul>
+    <div class="insight">
+      <div class="insight-label">INSIGHT</div>
+      <p>"벚꽃이 그렇게 빛나게 흴 수 있는 건 줄기가 그렇게 새까맣기 때문이다. 다른 꽃들에 비해서 줄기가 엄청나게 새까맣다. 그 새까만 배경에서 명암으로 그렇게 빛난다. 얘가 빛나는 이유는 배경이 죽어줘서다." - 그게 보이기 시작하면 늙어가는 거다.</p>
+    </div>
+  </div>
+
+  <div class="discussion-card">
+    <span class="q-num">4</span>
+    <div class="q-title">복원 - 부모에게서 받은 것 위에 내 자질을 덧입히며 살아가기</div>
+    <ul>
+      <li>29페이지: "이 도시와 같은 운명을 가진 어떤 사람은 - 성찰이 죽었거나 파괴되었던 사람, 그을린 잔해들 위에 끈덕지게 스스로를 복원한 사람" - '복원'이라는 말이 아프고 새로웠다</li>
+      <li>"문화재를 새로 복원한 데 가면 그 흔적들, 흉내는 냈는데 가짜 같으면서 가벼우면서 세월을 다 못 담아냈는데 새것처럼" - 우리의 삶도 그렇다. 부모에게서 받은 DNA 위에 내 자질로 덧입히면서 산다</li>
+      <li>"늙은 석벽들의 아랫부분이 살아남아 그 위에 더 쌓은 선명한 세각과 연결된 이상한 무늬를 가지게 되는" - 이 구절이 엄마-나-딸의 연결고리와 겹침</li>
+      <li>엄마와 딸의 DNA적 연결 - "우리 딸과 엄마와 가운데 낀 내가 계속 연결돼서 도는 느낌. 하나인 것 같다"</li>
+    </ul>
+  </div>
+
+  <div class="discussion-card">
+    <span class="q-num">5</span>
+    <div class="q-title">가족 - 소통, 독립, 그리고 화해</div>
+    <ul>
+      <li>"자식 유형별로 소통하는 것. 나의 색깔로 소통하는 것이 아니라 그 아이의 기준점을 두고 소통하는 것" - 옛날에는 해준다는 생각이었는데 시간이 지나면서 아이한테 배우는 것이 더 많아짐. "같이 늙어가는 것 같다. 다만 내가 조금 더 빠르게 갈 뿐"</li>
+      <li>아버지에 대한 감정 - "어릴 때 관심도 안 뒀던 사람이 성인이 되니까 자꾸 전화하고 챙기려 해. 필요할 때 아무것도 안 해놓고 왜 이제서야 의무를 하래?" 하지만 오빠의 한마디: "죄책감이 남아 있으면 그 죄책감으로라도 와." 이 말에 화해의 실마리가 됨</li>
+      <li>오빠의 사과 - "내가 나라도 그때 니 편이 돼줄 수 있었으면 좋았을 텐데, 그걸 몰랐어서 미안하다" - 이 한마디에 오빠와는 확 화해. 부모한테는 못 했지만 오빠한테는 "챙겨야 되는 사람이란 생각을 해본 적이 없었기 때문에 오히려 쉽게 용서"</li>
+      <li>착한 척의 대가 - "나는 가족 사이에서 착한 척을 하며 중재자 역할을 했는데, 그걸 집어치웠더니 오히려 아빠와 딸이 합체가 돼버렸다. 이 구도는 처음"</li>
+      <li>"꿈을 깨지 마" - 아버지가 딸이 올 때마다 밥 먹고 가라, 자고 가라 하는 것에 짜증이 나지만, 그 꿈을 깨지 않고 두는 것이 맞다는 깨달음</li>
+    </ul>
+    <div class="insight">
+      <div class="insight-label">INSIGHT</div>
+      <p>"이상적인 어머니상은 전적으로 내 편이 돼주는 엄마" - 전적으로 내 편이 아니라, 내 편일 때도 좀 있었으면 좋겠을 뿐. 그 작은 바람이 채워지지 않아서 독립이 빨라지고, 독립이 빨라져서 거리가 생기고, 거리가 생겨서 죄책감이 남고, 죄책감으로라도 간다.</p>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    "모국어에서 흰색을 말할 때 하얀과 흰이라는 형용사가 있다. 하얀과 달리 흰에는 삶과 죽음이 쓸쓸하게 함께 되어 있다."
+    <div class="quote-source">한강, 『흰』 182p</div>
+  </div>
+
+  <div class="quote-block">
+    "이 도시와 같은 운명을 가진 어떤 사람은 - 성찰이 죽었거나 파괴되었던 사람, 그을린 잔해들 위에 끈덕지게 스스로를 복원한 사람"
+    <div class="quote-source">한강, 『흰』 29p</div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">흰</div>
+  <div class="footer-sub">각양각책 3-3 &middot; 한강</div>
+</footer>
+
+</body>
+</html>
