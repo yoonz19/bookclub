@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>각양각책 2-4 - 명랑한 은둔자</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/niceplugin/paperlogy-font@1.0.0/css/paperlogy.min.css">
+<style>
+  :root { --primary:#6366F1; --dark:#111115; --gold:#A78BFA; --warm-bg:#F8F8FC; --slate:#1a1a2e; --green:#4CAF50; --text:#222; --text2:#666; --card:#fff; --radius:20px; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Pretendard',sans-serif; background:var(--warm-bg); color:var(--text); line-height:1.85; -webkit-font-smoothing:antialiased; }
+  .hero { background:var(--dark); min-height:480px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 30% 80%,rgba(99,102,241,0.25) 0%,transparent 50%),radial-gradient(ellipse at 70% 20%,rgba(167,139,250,0.18) 0%,transparent 50%); }
+  .hero-inner { position:relative; z-index:1; display:flex; align-items:center; gap:48px; max-width:960px; padding:60px 32px; width:100%; }
+  .hero-cover { flex-shrink:0; width:200px; height:290px; border-radius:14px; overflow:hidden; box-shadow:0 16px 48px rgba(0,0,0,0.5),0 0 80px rgba(99,102,241,0.2); background:#000; }
+  .hero-cover img { width:100%; height:100%; object-fit:cover; display:block; }
+  .hero-text { flex:1; }
+  .hero-badge { display:inline-block; background:rgba(167,139,250,0.15); border:1px solid rgba(167,139,250,0.3); border-radius:50px; padding:6px 20px; color:var(--gold); font-size:13px; font-weight:600; letter-spacing:3px; text-transform:uppercase; margin-bottom:20px; }
+  .hero-title { font-family:'Paperlogy',sans-serif; font-weight:900; font-size:48px; color:#fff; line-height:1.1; margin-bottom:6px; }
+  .hero-sub { font-family:'Paperlogy',sans-serif; font-weight:500; font-size:20px; color:rgba(255,255,255,0.5); margin-bottom:24px; }
+  .hero-meta { display:flex; gap:24px; flex-wrap:wrap; }
+  .hero-meta-item { display:flex; align-items:center; gap:8px; font-size:14px; color:rgba(255,255,255,0.45); }
+  .hero-meta-item strong { color:rgba(255,255,255,0.7); font-weight:600; }
+  .content { max-width:800px; margin:0 auto; padding:48px 24px 80px; }
+  .book-intro { background:var(--card); border-radius:var(--radius); padding:36px; margin-bottom:40px; box-shadow:0 2px 20px rgba(0,0,0,0.06); }
+  .book-intro h2 { font-family:'Paperlogy',sans-serif; font-weight:700; font-size:20px; margin-bottom:12px; color:var(--slate); }
+  .book-intro p { font-size:15px; color:var(--text2); line-height:1.9; }
+  .tags { display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
+  .tag { background:rgba(99,102,241,0.08); color:var(--primary); padding:4px 14px; border-radius:50px; font-size:13px; font-weight:500; }
+  .discussion-card { background:var(--card); border-radius:var(--radius); padding:36px; margin-bottom:28px; box-shadow:0 2px 20px rgba(0,0,0,0.06); border-left:4px solid var(--primary); }
+  .discussion-card:nth-child(even) { border-left-color:var(--gold); }
+  .discussion-card:nth-child(3n) { border-left-color:var(--green); }
+  .q-num { display:inline-block; background:var(--dark); color:var(--gold); width:32px; height:32px; border-radius:50%; text-align:center; line-height:32px; font-size:14px; font-weight:700; margin-bottom:12px; }
+  .q-title { font-family:'Paperlogy',sans-serif; font-weight:700; font-size:18px; line-height:1.5; margin-bottom:20px; color:var(--slate); }
+  .discussion-card ul { list-style:none; padding:0; }
+  .discussion-card li { position:relative; padding-left:20px; margin-bottom:14px; font-size:15px; line-height:1.8; }
+  .discussion-card li::before { content:''; position:absolute; left:0; top:10px; width:6px; height:6px; border-radius:50%; background:var(--primary); }
+  .insight { background:linear-gradient(135deg,rgba(99,102,241,0.06) 0%,rgba(167,139,250,0.06) 100%); border-radius:12px; padding:20px 24px; margin-top:20px; border:1px solid rgba(99,102,241,0.1); }
+  .insight-label { font-size:12px; font-weight:700; color:var(--primary); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+  .insight p { font-size:14px; color:var(--text2); line-height:1.8; }
+  .quote-block { background:var(--card); border-radius:var(--radius); padding:32px 36px; margin-bottom:28px; box-shadow:0 2px 20px rgba(0,0,0,0.06); border-left:4px solid var(--gold); font-style:italic; color:var(--text2); font-size:15px; line-height:1.9; }
+  .quote-block .quote-source { font-style:normal; font-size:13px; color:#bbb; margin-top:12px; }
+  .footer { background:var(--dark); padding:48px 24px; text-align:center; }
+  .footer-logo { font-family:'Paperlogy',sans-serif; font-weight:800; font-size:18px; color:rgba(255,255,255,0.25); margin-bottom:6px; }
+  .footer-sub { font-size:13px; color:rgba(255,255,255,0.12); }
+  .back-link { display:inline-block; margin-bottom:20px; color:var(--primary); text-decoration:none; font-size:14px; font-weight:600; }
+  .back-link:hover { text-decoration:underline; }
+  @media (max-width:768px) { .hero-inner { flex-direction:column; text-align:center; padding:40px 20px; } .hero-cover { width:150px; height:218px; } .hero-title { font-size:32px; } .hero-meta { justify-content:center; } .content { padding:32px 16px 60px; } .discussion-card,.book-intro { padding:24px; } }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-cover">
+      <img src="../images/2-4.jpg" alt="명랑한 은둔자 표지">
+    </div>
+    <div class="hero-text">
+      <div class="hero-badge">각양각책 2기</div>
+      <h1 class="hero-title">명랑한 은둔자</h1>
+      <div class="hero-sub">캐럴라인 냅</div>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><strong>2-4</strong> 회차</div>
+        <div class="hero-meta-item"><strong>2기 마지막</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="content">
+
+  <a href="../index.html" class="back-link">&larr; 아카이브로 돌아가기</a>
+
+  <div class="book-intro">
+    <h2>책 소개</h2>
+    <p>
+      캐럴라인 냅(1959~2002)이 30대에서 42세 사이에 쓴 에세이 모음집. 고독, 수줍음, 알코올 중독, 섭식 장애, 부모의 죽음,
+      사랑과 관계에 대한 이야기를 담담하면서도 날카롭게 풀어낸다. 1990년대 미국 여성의 일상이 2020년대 한국 사회와
+      놀라울 정도로 닮아 있어 시대를 초월한 공감을 불러일으킨 작품.
+    </p>
+    <div class="tags">
+      <span class="tag">에세이</span>
+      <span class="tag">고독</span>
+      <span class="tag">수줍음</span>
+      <span class="tag">알코올</span>
+      <span class="tag">섭식장애</span>
+      <span class="tag">모녀관계</span>
+    </div>
+  </div>
+
+  <!-- 총평과 첫 인상 -->
+  <div class="discussion-card">
+    <span class="q-num">1</span>
+    <div class="q-title">책 총평과 첫 인상</div>
+    <ul>
+      <li>제목 '명랑한 은둔자'의 역설적 매력에 모두 공감. "매맞아도 명랑한 년"(더 글로리아)처럼 반어적 언어가 주는 힘이 있다</li>
+      <li>"이 여자가 한국인도 아닌데 어쩜 이렇게 한국적인 감정이지" - 수줍음, 엄마와의 관계, 은둔하면서도 명랑하려 애쓰는 모습이 너무 비슷</li>
+      <li>1990년대에 쓴 글인데 지금 한국 사회와 괴리감이 전혀 없다는 놀라움. "미국 90년대가 지금 한국 30대의 사회 모습인 건가?"</li>
+      <li>INTJ 멤버는 "전반적으로 징징댄다는 느낌"이라며 T의 시선을 보여줬고, INFP/ISFJ 멤버들은 깊은 공감. "MBTI가 독서 감상을 이렇게 가르는구나"</li>
+      <li>작가가 2002년 42세에 사망한 것에 대한 안타까움. "나도 죽으면 딸이 나를 어떻게 표현할까" 하는 생각으로 이어짐</li>
+    </ul>
+    <div class="insight">
+      <div class="insight-label">INSIGHT</div>
+      <p>한국의 윤고은 작가와 비교 - "반듯하고 멀쩡한 시민이 소소한 일상을 말하는데 그게 땅에 떨어지지 않는" 스타일. 깊이가 아닌 세련됨으로 승부하는 새로운 에세이의 계보.</p>
+    </div>
+  </div>
+
+  <!-- 수줍음과 사회적 가면 -->
+  <div class="discussion-card">
+    <span class="q-num">2</span>
+    <div class="q-title">수줍음, 사회적 가면, 그리고 오해</div>
+    <ul>
+      <li>어릴 때 수줍어서 인사를 못 한 건데 부모님이 "살갑지 않다"고 혼낸 경험 - 수줍음을 결함으로 인식하게 됨. 20대 후반까지 "나는 새로운 사람을 못 만나는 사람"이라는 프레임에 갇혀 있었다</li>
+      <li>뮤지컬 동호회를 하면서 사회적 가면을 쓰는 법을 배움. "솔직한 것보다 가면이 훨씬 쉽다는 걸 알게 된 순간 전환이 됐다"</li>
+      <li>수줍음이 "도도하다, 교만하다"로 오해받는 경험 공유 - 용인에 이사 와서 말을 안 했을 뿐인데 "너무 교만하다"고 욕을 먹은 사례. "난 단지 우울해서 교제할 마음이 없었을 뿐인데"</li>
+      <li>직장에서 살살거리며 예쁨받는 전략 vs 실력으로 승부하는 전략 - "징징대지 않고 살살거리면서 일도 잘하면 징징대는 애들보다 위로 갈 수 있다"</li>
+    </ul>
+    <div class="insight">
+      <div class="insight-label">INSIGHT</div>
+      <p>"부러지지 않기 위해 휘어지기를 택했다" - 전 직장에서 '살갑지 않다'는 이유로 부당한 평가를 받고 이직한 뒤, 의도적으로 사회적 자아를 바꾼 경험담. 수줍음을 극복한 것이 아니라 가면을 쓰는 법을 배운 것.</p>
+    </div>
+  </div>
+
+  <!-- 다이어트와 몸 -->
+  <div class="discussion-card">
+    <span class="q-num">3</span>
+    <div class="q-title">다이어트, 섭식장애, 그리고 엄마의 시선</div>
+    <ul>
+      <li>작가가 38kg를 "한 100번은 언급했다"는 지적. 거식증의 고통인지 자랑인지 미묘한 선. "굶는 것이 자기를 통제한다는 착각의 달콤함에 빠진 것"</li>
+      <li>엄마가 딸의 몸에 대해 잔소리하는 패턴 - "살이 쪄서 내가 스트레스받는 게 아니라, 집에만 가면 지적을 받으니까 집에 가는 것 자체가 에너지를 쓰는 일이 된다"</li>
+      <li>"집에 있는데 집에 가고 싶다" - 부모의 기대에 맞는 상태일 때만 만나야 할 것 같은 압박감. 잘 된 상태에서만 보여줘야 하는 피로</li>
+      <li>반대 사례: 딸의 체중에 한 번도 지적하지 않은 엄마 - 결과적으로 딸이 스스로 끝판까지 경험하고 돌아옴. "어느 쪽이 맞는지는 모르겠지만 경험치의 깊이가 다르다"</li>
+      <li>조정(보트) 운동을 통해 다이어트의 고난이 즐김의 단계로 승화된 부분이 매력적이었다는 공감</li>
+    </ul>
+  </div>
+
+  <!-- 고독 고립 외로움 -->
+  <div class="discussion-card">
+    <span class="q-num">4</span>
+    <div class="q-title">고독, 고립, 외로움의 차이</div>
+    <ul>
+      <li><strong>고독</strong> - 내가 선택하는 것. 영혼을 충족시키는 가장 고차원적인 마인드. "혼자만의 고독을 즐기다가 하고 싶은 것을 만끽하는 순간"</li>
+      <li><strong>고립</strong> - 수동적으로 당하는 것(소외). 하지만 능동적으로 자신을 고립시키기도 한다. "멈추는 행위 자체가 고립 - 외부 영향으로 멈추거나, 내 고독을 위해 스스로 멈추거나"</li>
+      <li><strong>외로움</strong> - 고독을 즐기다가 심심해지는 것. 남을 받아들일 여유가 생겼을 때 느끼는 감정. 밑바탕에 깔려 있다가 불쑥 튀어나오기도 한다</li>
+      <li>"가족과 함께 있어도 외롭다" - 누구나 겪는 감정. I 성향인 사람들이 대중 속에서 고독을 특히 많이 느낌</li>
+      <li>극단적으로 외향적인 직장 상사 사례 - 혼자 있는 것을 이해 못 하고, 힘든 날에도 "이럴 때일수록 같이 있어야 해"라고 밀어붙이는 E. "좋은 의도지만 I의 영역을 침범하는 것"</li>
+    </ul>
+    <div class="insight">
+      <div class="insight-label">INSIGHT</div>
+      <p>세 개념은 교집합이 있는 개별적 개념이지 명확히 분리되지 않는다. 고독하다(능동) vs 고립되다(수동)의 문법적 차이가 본질을 말해준다. 하지만 군중 속에서도 문득 고독하고, 연애 중에도 외로울 수 있다.</p>
+    </div>
+  </div>
+
+  <!-- 가장 좋았던 구절 -->
+  <div class="discussion-card">
+    <span class="q-num">5</span>
+    <div class="q-title">가장 마음에 남은 구절</div>
+    <ul>
+      <li>"프라이버시와 교류의 균형을 예전보다 더 자주 달성할 줄 안다. 나로 말하면 이제 겨우 시작했을 뿐이다." (25p) - 나다울 때와 교류할 때의 적절한 균형을 맞추기 시작했다는 공감</li>
+      <li>"기억만으로는 부족하다." (151p) - 엄마가 35세에 죽은 뒤 느낀 감정. "내가 죽으면 딸이 나를 어떻게 기억할까"로 이어짐</li>
+      <li>"집 꾸미기는 미학적으로 만족스러운 물건들을 사들이는 일에만 관련된 것이 아니라, 외로움을 견뎌보겠다고 마음먹는 일, 고독 속에서 행복하게 지내는 법을 익혀보겠다고 마음먹는 일과도 관련된 것이다." (275p) - 혼자 사는 집의 의미와 정확히 일치</li>
+    </ul>
+  </div>
+
+  <div class="quote-block">
+    "집 꾸미기는 미학적으로 만족스러운 물건들을 사들이는 일에만 관련된 것이 아니라 그보다 더 모호한 요소들 - 즉 외로움을 견뎌보겠다고 마음먹는 일, 고독 속에서 행복하게 지내는 법을 익혀보겠다고 마음먹는 일과도 관련된 것이라고 생각하라."
+    <div class="quote-source">캐럴라인 냅, 『명랑한 은둔자』 275p</div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">각양각책 2-4</div>
+  <div class="footer-sub">명랑한 은둔자 &middot; 캐럴라인 냅</div>
+</footer>
+
+</body>
+</html>
